@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 def create_model():
     model = keras.models.Sequential([
         keras.layers.Embedding(conf.VOCAB_SIZE, 128, input_length=15),
-        keras.layers.Bidirectional(keras.layers.LSTM(64)),
+        keras.layers.Bidirectional(keras.layers.GRU(64)),
         keras.layers.Dense(4096, activation="relu"),
         keras.layers.Dropout(0.2),
         keras.layers.Dense(conf.VOCAB_SIZE, activation="softmax")
@@ -49,3 +49,7 @@ def test_model(text: str, pred_size: int = 10):
             text += " " + word
 
     return text
+
+
+if __name__ == '__main__':
+    train_model(create_model())
